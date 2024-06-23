@@ -1,0 +1,197 @@
+# Here is a proposed full stack folder structure for the project using React and Vite:
+
+Client-side (React)
+
+- src/
+    - components/
+        - SchedulePlanner/
+            - index.tsx
+            - SchedulePlanner.tsx
+            - SchedulePlanner.css
+        - BudgetTracker/
+            - index.tsx
+            - BudgetTracker.tsx
+            - BudgetTracker.css
+        - ShoppingList/
+            - index.tsx
+            - ShoppingList.tsx
+            - ShoppingList.css
+        - Chat/
+            - index.tsx
+            - Chat.tsx
+            - Chat.css
+        - HabitTracker/
+            - index.tsx
+            - HabitTracker.tsx
+            - HabitTracker.css
+    - containers/
+        - App/
+            - index.tsx
+            - App.tsx
+            - App.css
+    - hooks/
+        - useSchedule/
+            - index.ts
+            - useSchedule.ts
+        - useBudget/
+            - index.ts
+            - useBudget.ts
+        - useShoppingList/
+            - index.ts
+            - useShoppingList.ts
+        - useChat/
+            - index.ts
+            - useChat.ts
+        - useHabitTracker/
+            - index.ts
+            - useHabitTracker.ts
+    - utils/
+        - api.ts
+        - constants.ts
+        - helpers.ts
+    - main.tsx
+    - index.tsx
+
+Server-side (Node.js)
+
+- server/
+    - controllers/
+        - ScheduleController/
+            - index.ts
+            - ScheduleController.ts
+        - BudgetController/
+            - index.ts
+            - BudgetController.ts
+        - ShoppingListController/
+            - index.ts
+            - ShoppingListController.ts
+        - ChatController/
+            - index.ts
+            - ChatController.ts
+        - HabitTrackerController/
+            - index.ts
+            - HabitTrackerController.ts
+    - models/
+        - Schedule/
+            - index.ts
+            - Schedule.ts
+        - Budget/
+            - index.ts
+            - Budget.ts
+        - ShoppingList/
+            - index.ts
+            - ShoppingList.ts
+        - Chat/
+            - index.ts
+            - Chat.ts
+        - HabitTracker/
+            - index.ts
+            - HabitTracker.ts
+    - routes/
+        - schedule.ts
+        - budget.ts
+        - shoppingList.ts
+        - chat.ts
+        - habitTracker.ts
+    - utils/
+        - api.ts
+        - constants.ts
+        - helpers.ts
+    - app.ts
+    - index.ts
+
+Shared
+
+- types/
+    - schedule.d.ts
+    - budget.d.ts
+    - shoppingList.d.ts
+    - chat.d.ts
+    - habitTracker.d.ts
+- constants/
+    - schedule.constants.ts
+    - budget.constants.ts
+    - shoppingList.constants.ts
+    - chat.constants.ts
+    - habitTracker.constants.ts
+
+This structure follows a modular approach, with separate folders for client-side and server-side code. The client-side code is organized by component, container, hook, and utility, while the server-side code is organized by controller, model, route, and utility. The shared folder contains type definitions and constants used across both client and server.
+
+Note that this is just one possible way to structure the project, and you may need to adjust it based on your specific requirements and preferences.
+
+
+
+
+## Full Stack Folder Structure (MERN Stack)
+
+This structure assumes a MERN stack (MongoDB, Express, React, Node.js) for development. 
+
+**Root Directory**
+
+```
+your-app-name/
+├── package.json
+├── README.md
+├── backend/  # Backend directory
+│   ├── ... (Backend code and structure)
+│   └── ...
+├── frontend/  # Frontend directory
+│   ├── public/  # Static assets
+│   │   └── ... (Images, fonts, etc.)
+│   ├── src/     # React application source code
+│   │   ├── App.jsx  # Main application component
+│   │   ├── components/    # Reusable UI components
+│   │   │   ├── Auth/  # Authentication components (optional)
+│   │   │   │   ├── LoginForm.jsx
+│   │   │   │   └── SignupForm.jsx
+│   │   │   ├── Budget/   # Budgeting components
+│   │   │   │   ├── BudgetForm.jsx
+│   │   │   │   └── TransactionList.jsx
+│   │   │   ├── Chat/   # Chat components
+│   │   │   │   ├── ChatRoom.jsx
+│   │   │   │   └── MessageList.jsx
+│   │   │   ├── Habit/  # Habit tracking components
+│   │   │   │   ├── HabitForm.jsx
+│   │   │   │   └── HabitTracker.jsx
+│   │   │   ├── Schedule/   # Scheduling components
+│   │   │   │   ├── EventForm.jsx
+│   │   │   │   └── ScheduleList.jsx
+│   │   │   └── ...  # Other reusable components
+│   │   ├── services/  # API interaction services
+│   │   │   ├── auth.js  # Authentication service
+│   │   │   ├── budget.js  # Budget service
+│   │   │   └── ...  # Other API interaction services
+│   │   ├── store/    # Redux store and reducers
+│   │   │   ├── index.js  # Redux store setup
+│   │   │   └── reducers/  # Reducers for different parts of state
+│   │   │       ├── authReducer.js
+│   │   │       ├── budgetReducer.js
+│   │   │       └── ...  # Other reducers
+│   │   ├── styles/    # Global and component styles
+│   │   │   ├── global.css
+│   │   │   └── components/  # Component specific styles
+│   │   │       └── Budget.module.css
+│   │   │       └── ...  # Other component styles
+│   │   └── App.test.js  # Unit tests for App component
+│   ├── index.js      # Main entry point for React app
+│   └── ...          # Other frontend configuration files
+└── .env            # Environment variables
+
+```
+
+**Explanation:**
+
+* **backend/**: This directory houses your backend code using a framework like Express.js. It will handle API requests, database interactions, and authentication (if needed). The specific structure within this directory will depend on your chosen framework.
+* **frontend/**: This directory contains the React application code.
+    * **public/**: This directory stores static assets like images, fonts, and favicons used by your app.
+    * **src/**: This directory contains the source code for your React application.
+        * **App.jsx**: The main application component that renders the overall UI structure.
+        * **components/**: This directory houses reusable UI components for different features of your app. Each feature can have its own subdirectory for better organization (e.g., Budget, Chat, Habit, Schedule). Component names should follow the PascalCase convention (e.g., `LoginForm.jsx`, `TransactionList.jsx`).
+        * **services/**: This directory stores services that handle API interaction with the backend. Each service can be responsible for a specific functionality (e.g., auth.js for authentication, budget.js for budget related API calls).
+        * **store/**: This directory houses the Redux store and reducers.
+            * **index.js**: Sets up the Redux store and combines reducers.
+            * **reducers/**: This directory contains individual reducer functions for managing different parts of the application state (e.g., authReducer.js, budgetReducer.js).
+        * **styles/**: This directory houses styles for your application.
+            * **global.css**: Defines global styles applied throughout the app.
+            * **components/**: This directory can hold component-specific stylesheets (e.g., Budget.module.css) for better organization.
+        * **

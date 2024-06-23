@@ -1,0 +1,77 @@
+budget-tracker-app/
+│
+├── README.md
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── yarn.lock
+├── src/
+│   ├── assets/
+│   │   ├── images/
+│   │   ├── icons/
+│   ├── components/
+│   │   ├── Authentication/
+│   │   │   ├── Login.js
+│   │   │   ├── Register.js
+│   │   ├── BudgetPlanning/
+│   │   │   ├── AddExpense.js
+│   │   │   ├── AddIncome.js
+│   │   │   ├── Categories.js
+│   │   ├── RealTimeTracking/
+│   │   │   ├── Dashboard.js
+│   │   │   ├── BudgetSummary.js
+│   │   ├── Notifications/
+│   │   │   ├── NotificationList.js
+│   │   │   ├── NotificationDetails.js
+│   │   ├── Reporting/
+│   │   │   ├── SpendingReport.js
+│   │   │   ├── TrendReport.js
+│   │   ├── MultiPlatformSupport/
+│   │   │   ├── Web.js
+│   │   │   ├── iOS.js
+│   │   │   ├── Android.js
+│   │   ├── DataSecurity/
+│   │   │   ├── Authentication.js
+│   │   │   ├── Encryption.js
+│   │   ├── Scalability/
+│   │   │   ├── LoadBalancing.js
+│   │   │   ├── Caching.js
+│   │   ├── Personalization/
+│   │   │   ├── UserPreferences.js
+│   │   │   ├── CustomCategories.js
+│   │   ├── Integration/
+│   │   │   ├── BankIntegration.js
+│   │   │   ├── CreditCardIntegration.js
+│   │   ├── OfflineSupport/
+│   │   │   ├── OfflineMode.js
+│   │   ├── DataBackup/
+│   │   │   ├── BackupStrategy.js
+│   │   │   ├── RestoreData.js
+│   │   ├── Accessibility/
+│   │   │   ├── AccessibleComponents.js
+│   │   │   ├── KeyboardNavigation.js
+│   │   ├── CommunitySupport/
+│   │   │   ├── Forum.js
+│   │   │   ├── Chat.js
+│   │   ├── utils/
+│   │   │   ├── api.js
+│   │   │   ├── helper.js
+│   │   ├── App.js
+│   │   ├── index.js
+│   ├── public/
+│   │   ├── index.html
+│   │   ├── favicon.ico
+│   ├── .eslintrc.js
+│   ├── .prettierrc
+│   ├── .babelrc
+│   ├── .env
+│   ├── .env.development
+│   ├── .env.production
+│   ├── jest.config.js
+│   ├── tsconfig.json
+│   ├── babel.config.js
+│   ├── tailwind.config.js
+│   ├── postcss.config.js
+│   ├── webpack.config.js
+│   ├── package-json
+│   └── yarn.lock

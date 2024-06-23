@@ -1,0 +1,132 @@
+.chatList--container {
+  .user-info {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+
+    img {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .icons {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      column-gap: 2px;
+
+      button {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(46, 45, 45);
+        color: white;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          opacity: 0.75;
+        }
+        &:active {
+          transform: translateY(2px);
+        }
+      }
+    }
+  }
+  .searchBar {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin: 8px 0;
+    column-gap: 10px;
+    .search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4px;
+      border: 1px solid rgba(128, 128, 128, 0.5);
+      height: 2.25rem;
+      border-radius: 6px;
+
+      input {
+        width: 85%;
+        height: 90%;
+        padding: 4px;
+        background: inherit;
+        &:focus {
+          outline: none;
+        }
+      }
+      label {
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease-in-out;
+        border-radius: 50%;
+
+        &:hover {
+          background-color: rgba(128, 128, 128, 0.5);
+        }
+        &:active {
+          transform: translateY(2px);
+        }
+      }
+    }
+
+    .add-button {
+      width: 2.15rem;
+      height: 2.15rem;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgb(46, 45, 45);
+      color: white;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        opacity: 0.75;
+      }
+      &:active {
+        transform: translateY(2px);
+      }
+    }
+  }
+
+  .list-container {
+    width: 100%;
+    flex: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .chat-list-Item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+      column-gap: 10px;
+      margin-bottom: 14px;
+
+      img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+      }
+    }
+  }
+}

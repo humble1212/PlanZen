@@ -1,0 +1,32 @@
+.chat--container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+
+  .chatList--container,
+  .chatmessages--container,
+  .chatdetails--container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    height: 100%;
+    padding: 4px;
+  }
+  .chatList--container {
+    flex: 0.75;
+  }
+  .chatmessages--container {
+    flex: 2;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+  }
+  .chatdetails--container {
+    flex: 1;
+    align-items: center;
+  }
+}

@@ -1,0 +1,216 @@
+.chatmessages--container {
+  position: relative;
+  .chatmessages--header {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+
+    .chatmessages--header--left {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      column-gap: 10px;
+
+      img {
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+        margin-bottom: 6px;
+      }
+
+      .chatmessages--header--left--name {
+        display: flex;
+        flex-direction: column;
+        color: var(--primary-color);
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+    .chatmessages--header--right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      column-gap: 10px;
+
+      button {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: rgb(44, 44, 44);
+        color: white;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          opacity: 0.75;
+        }
+        &:active {
+          transform: translateY(3px);
+        }
+      }
+    }
+  }
+  .conversation-container {
+    flex: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .conversations {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 5px;
+      transition: all 0.5s ease-in-out;
+
+      img {
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+      }
+
+      .receiver {
+        max-width: 60%;
+        display: flex;
+        justify-content: space-between;
+        column-gap: 1rem;
+        text-align: start;
+        background-color: rgb(163, 163, 163);
+        border-radius: 5px;
+        padding: 10px;
+
+        .receiver-text {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+
+          img {
+            width: 100%;
+            height: 300px;
+            border-radius: 6px;
+            align-self: flex-end;
+            object-fit: cover;
+          }
+        }
+
+        p {
+          background-color: rgba(0, 0, 0, 0.5);
+          color: white;
+          padding: 5px;
+          border-radius: 0px;
+          backdrop-filter: blur(20px);
+          border-radius: 5px;
+          margin: 5px 0;
+        }
+        &.sender {
+          align-self: end;
+          text-align: end;
+          p {
+            background-color: blue;
+          }
+
+          img {
+            width: 100%;
+            height: 300px;
+            border-radius: 6px;
+            align-self: flex-end;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+  .chatmessages--form {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    padding: 5px;
+    border-radius: 4px;
+
+    .chatmessages--form--input {
+      flex: 0.5;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      column-gap: 5px;
+
+      span {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: gray;
+        color: aliceblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        transition: all 0.5s ease-in-out;
+
+        &:hover {
+          opacity: 0.75;
+          background-color: gray;
+          color: aliceblue;
+        }
+        &:active {
+          transform: translateY(3px);
+        }
+      }
+    }
+    input {
+      flex: 2;
+      height: 90%;
+      padding: 5px;
+      background: none;
+      border: none;
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .chatmessages--form--buttons {
+      flex: 0.5;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      column-gap: 5px;
+      padding: 5px;
+      button {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 5px;
+        transition: all 0.5s ease-in-out;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          opacity: 0.75;
+          background-color: gray;
+          color: aliceblue;
+        }
+        &:active {
+          transform: translateY(3px);
+        }
+      }
+    }
+  }
+}
