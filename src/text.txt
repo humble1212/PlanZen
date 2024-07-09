@@ -1,0 +1,91 @@
+src/
+│
+├── components/
+│   ├── common/
+│   │   ├── Button/
+│   │   ├── Input/
+│   │   ├── Modal/
+│   │   └── Card/
+│   ├── layout/
+│   │   ├── Header/
+│   │   ├── Footer/
+│   │   ├── Sidebar/
+│   │   └── Layout/
+│   ├── features/
+│   │   ├── Calendar/
+│   │   ├── Budget/
+│   │   ├── Habits/
+│   │   ├── Shopping/
+│   │   └── Chat/
+│   └── pages/
+│       ├── Home/
+│       ├── Dashboard/
+│       ├── Login/
+│       └── Register/
+│
+├── hooks/
+│   ├── useAuth.js
+│   ├── useBudget.js
+│   ├── useHabits.js
+│   └── useNotifications.js
+│
+├── appwrite/
+│   ├── config.js
+│   └── api.js
+│
+├── redux/
+│   ├── slices/
+│   │   ├── authSlice.js
+│   │   ├── calendarSlice.js
+│   │   ├── budgetSlice.js
+│   │   ├── habitsSlice.js
+│   │   └── shoppingSlice.js
+│   ├── actions/
+│   │   ├── authActions.js
+│   │   ├── calendarActions.js
+│   │   ├── budgetActions.js
+│   │   ├── habitsActions.js
+│   │   └── shoppingActions.js
+│   ├── selectors/
+│   │   ├── authSelectors.js
+│   │   ├── calendarSelectors.js
+│   │   ├── budgetSelectors.js
+│   │   ├── habitsSelectors.js
+│   │   └── shoppingSelectors.js
+│   ├── store.js
+│   └── rootReducer.js
+│
+├── utils/
+│   ├── dateUtils.js
+│   ├── formatters.js
+│   └── validators.js
+│
+├── styles/
+│   ├── global.css
+│   ├── variables.css
+│   └── themes/
+│       ├── light.js
+│       └── dark.js
+│
+├── assets/
+│   ├── images/
+│   ├── icons/
+│   └── fonts/
+│
+├── routes/
+│   ├── PrivateRoute.js
+│   └── routes.js
+│
+├── config/
+│   └── constants.js
+│
+├── locales/
+│   ├── en/
+│   └── es/
+│
+├── tests/
+│   ├── unit/
+│   └── integration/
+│
+├── App.js
+└── index.js
