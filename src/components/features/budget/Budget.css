@@ -1,0 +1,26 @@
+input,
+textarea,
+select,
+option {
+  /* @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50; */
+  width: 100%;
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.05);
+  padding: 0.5rem 1rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin-top: 4px;
+  &:focus {
+    border-color: #4178fa;
+    box-shadow: 0 0 0 0.2rem rgba(65, 120, 250, 0.25);
+  }
+  &.error {
+    border-color: red;
+  }
+  &.success {
+    border-color: green;
+  }
+  &.warning {
+    border-color: orange;
+  }
+}

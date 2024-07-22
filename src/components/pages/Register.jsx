@@ -1,54 +1,50 @@
-// src/components/pages/Register.jsx
-
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { createAccount } from "../../redux/actions/authActions";
-import {
-  selectAuthLoading,
-  selectAuthError,
-} from "../../redux/selectors/authSelector";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useTheme } from "../../appContext/appContext";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaUserAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { useForm } from "react-hook-form";
-import { BiUser } from "react-icons/bi";
+import authService from "../../appwrite/Auth";
+import { login } from "../../redux/slices/authSlice";
+import LoadingSpinner from "../common/spinners/LoadingSpinner";
+import { useState } from "react";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoading = useSelector(selectAuthLoading);
-  const error = useSelector(selectAuthError);
+  const [showPassword, setShowPassword] = useState(false);
+  const { themeMode } = useTheme();
 
   const {
     register,
     handleSubmit,
     setError,
     watch,
-    formState: { errors },
+    setValue,
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      name: "jane Smith",
-      email: "email@example.com",
-      password: "Password@1234",
-      confirmPassword: "Password@1234",
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
+
   const password = watch("password");
-  // submit user data to appwrite endpoint
+
   const onSubmit = async (data) => {
     try {
-      await dispatch(
-        createAccount(
-          data.email,
-          data.password,
-          data.name,
-          data.confirmPassword
-        )
-      );
-      navigate("/Login"); // Redirect to dashboard on successful registration
+      const userData = await authService.createAccount(data);
+      if (userData) {
+        const currentUser = await authService.getCurrentUser();
+        if (currentUser) {
+          dispatch(login({ userData: currentUser }));
+        }
+        navigate("/Login");
+      }
     } catch (err) {
       setError("password", {
         message: err.message,
@@ -56,194 +52,256 @@ const Register = () => {
     }
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-  const { themeMode } = useTheme();
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+  const generatePassword = () => {
+    const charset =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+    let newPassword = "";
+    for (let i = 0; i < 12; i++) {
+      newPassword += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    setValue("password", newPassword);
+    setValue("confirmPassword", newPassword);
+    setShowPassword(true);
   };
+
+  const inputClasses = `w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200 ${
+    themeMode === "light"
+      ? "border-gray-300 bg-white text-gray-900"
+      : "border-gray-600 bg-gray-700 text-white"
+  }`;
+
+  const labelClasses = `block text-sm font-medium mb-1 group-hover:text-indigo-600 transition-colors duration-200 ${
+    themeMode === "light" ? "text-gray-700" : "text-gray-200"
+  }`;
 
   return (
     <section
-      className={`w-full h-full flex items-center justify-center bg-no-repeat bg-cover bg-center + ${
+      className={`min-h-screen flex items-center justify-center ${
         themeMode === "light"
-          ? 'bg-[url("https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=600")]'
-          : 'bg-[url("https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?auto=compress&cs=tinysrgb&w=600")]'
+          ? "bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"
+          : "bg-gradient-to-br from-gray-900 via-purple-950 to-indigo-950"
       }`}>
-      <section className="w-full h-full flex items-center justify-center shadow-2xl rounded-lg z-50 backdrop-blur-2xl px-40 ">
-        <div className="flex-1 h-full flex flex-col gap-2 items-center justify-center p-1">
-          <p className="w-full flex items-center justify-start border-b border-orange-500 mb-5">
-            Provide login details
-          </p>
-
-          <form onSubmit={handleSubmit(onSubmit)} className="w-3/4 h-auto">
-            <div className="w-full flex flex-col items-start justify-center p-2 mb-2 ">
-              <strong className="w-full text-start text-2xl">
-                Glad you are here!
-              </strong>
-              <p className="text-sm my-2">
-                Amazing offers await you! register now to access our great
-                products
-              </p>
-            </div>
-            <div className="w-full flex flex-col items-start gap-1 mb-2">
-              <label
-                htmlFor="text"
-                className="w-full flex items-center justify-start gap-1">
-                <BiUser /> Full Name
+      <div
+        className={`p-8 rounded-2xl shadow-2xl w-full max-w-6xl flex overflow-hidden ${
+          themeMode === "light" ? "bg-white" : "bg-gray-800"
+        }`}>
+        <div className="w-1/2 pr-8">
+          <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Join PlanZen Today!
+          </h2>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div className="group">
+              <label htmlFor="name" className={labelClasses}>
+                <FaUserAlt className="inline mr-2" /> Full Name
               </label>
               <input
                 type="text"
-                id="text"
-                placeholder="please enter your full name"
-                {...register("name", {
-                  required: " please enter your name",
-                })}
-                className="w-full h-11 indent-2 shadow-lg border rounded focus:outline-none"
+                id="name"
+                {...register("name", { required: "Please enter your name" })}
+                className={inputClasses}
+                placeholder="Enter your full name"
               />
               {errors.name && (
-                <span className="text-orange-500 w-full flex items-center justify-center">
+                <p className="mt-1 text-sm text-red-500">
                   {errors.name.message}
-                </span>
+                </p>
               )}
             </div>
-            <div className="w-full flex flex-col items-start gap-1 mb-2">
-              <label
-                htmlFor="email"
-                className="w-full flex items-center justify-start gap-1">
-                <MdEmail /> Email
+
+            <div className="group">
+              <label htmlFor="email" className={labelClasses}>
+                <MdEmail className="inline mr-2" /> Email Address
               </label>
               <input
                 type="email"
                 id="email"
-                placeholder="Enter your email address"
-                {...register("email", {
-                  required: "email is required",
-                })}
-                className="w-full h-11 indent-2 shadow-lg border rounded focus:outline-none"
+                {...register("email", { required: "Email is required" })}
+                className={inputClasses}
+                placeholder="Enter your email"
               />
               {errors.email && (
-                <span className="text-orange-500 w-full flex items-center justify-center">
+                <p className="mt-1 text-sm text-red-500">
                   {errors.email.message}
-                </span>
+                </p>
               )}
             </div>
-            <div className="w-full flex flex-col items-start gap-1 mb-2 relative">
-              <label
-                htmlFor="password"
-                className="w-full flex items-center justify-start gap-1">
-                <FaLock />
-                Password
+
+            <div className="group relative">
+              <label htmlFor="password" className={labelClasses}>
+                <FaLock className="inline mr-2" /> Password
               </label>
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                placeholder="Enter your password"
                 {...register("password", {
-                  required: "password is required",
+                  required: "Password is required",
                   minLength: {
                     value: 8,
-                    message: "must be at least 8 characters long",
+                    message: "Password must be at least 8 characters long",
                   },
                   pattern: {
                     value:
                       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                     message:
-                      "must contain at least one uppercase letter, one lowercase letter, one number",
+                      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
                   },
                 })}
-                className="w-full h-11 indent-2 shadow-lg border rounded focus:outline-none"
+                className={inputClasses}
+                placeholder="Enter your password"
               />
-
-              {errors.password && (
-                <span className="text-orange-500 w-full flex items-center justify-center">
-                  {errors.password.message}
-                </span>
-              )}
               <button
                 type="button"
-                className="w-7 h-7 rounded-full text-gray-500 hover:bg-gray-300 duration-300 absolute right-2 top-9 text-xl flex items-center justify-center"
-                onClick={handleShowPassword}>
-                {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
+                className={`absolute right-3 top-8 hover:text-indigo-600 transition-colors duration-200 ${
+                  themeMode === "light" ? "text-gray-500" : "text-gray-400"
+                }`}
+                onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
               </button>
+              {errors.password && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
-            <div className="w-full flex flex-col items-start gap-1 mb-2 relative">
-              <label
-                htmlFor="confirmPassword"
-                className="w-full flex items-center justify-start gap-1">
-                <FaLock />
-                Confirm Password
+
+            <div className="group">
+              <label htmlFor="confirmPassword" className={labelClasses}>
+                <FaLock className="inline mr-2" /> Confirm Password
               </label>
               <input
                 type={showPassword ? "text" : "password"}
                 id="confirmPassword"
-                placeholder="Enter password again..."
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
                   validate: (value) =>
                     value === password || "Passwords do not match",
                 })}
-                className="w-full h-11 indent-2 shadow-lg border rounded focus:outline-none"
+                className={inputClasses}
+                placeholder="Confirm your password"
               />
               {errors.confirmPassword && (
-                <span className="text-orange-500 w-full flex items-center justify-center">
+                <p className="mt-1 text-sm text-red-500">
                   {errors.confirmPassword.message}
-                </span>
+                </p>
               )}
             </div>
-            <p className="w-full flex items-center justify-between p-2 text-sm">
-              <small>
-                By signing up, you agree to our terms of service and privacy
-                policy.
-              </small>
+
+            <button
+              type="button"
+              onClick={generatePassword}
+              className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-300">
+              Generate Strong Password
+            </button>
+
+            <p
+              className={`text-sm ${
+                themeMode === "light" ? "text-gray-600" : "text-gray-400"
+              }`}>
+              By signing up, you agree to our{" "}
+              <NavLink to="/terms" className="text-indigo-600 hover:underline">
+                terms of service
+              </NavLink>{" "}
+              and{" "}
               <NavLink
-                to={`/AboutUs`}
-                className="text-orange-500 hover:text-orange-600 text-sm">
-                Learn more
+                to="/privacy"
+                className="text-indigo-600 hover:underline">
+                privacy policy
               </NavLink>
+              .
             </p>
-            {error && (
-              <span className="text-orange-500 w-full flex items-center justify-center">
-                {error}
-              </span>
-            )}
-            <div className="w-full flex flex-col items-center justify-center gap-3 mb-2">
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="h-10 w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 font-bold rounded-lg duration-300 hover:opacity-50 active:translate-y-0.5">
-                {isLoading ? "Submitting..." : "Submit"}
-              </button>
-              <button
-                type="button"
-                className="h-10 w-full border-2 font-bold rounded-lg duration-300 hover:opacity-50 active:translate-y-0.5 flex items-center justify-center gap-4">
-                <span className="text-2xl">
-                  <FcGoogle />
-                </span>
-                Register with google
-              </button>
-            </div>
-            <small>copyright @ PlanZen 2024</small>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 px-4 rounded-md hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+              {isSubmitting ? <LoadingSpinner /> : "Create Account"}
+            </button>
           </form>
-        </div>
-        <div className="flex-1 h-4/5 flex flex-col gap-2 items-center justify-center p-1 rounded-3xl border-2 border-gray-400">
-          <h2>
-            <strong className=" w-full text-center text-3xl">
-              Good to See You!
-            </strong>
-          </h2>
-          <p className="w-full p-2 text-center flex items-center justify-center">
-            {`PlanZen is a simple and intuitive calendar application that helps you organize and schedule your tasks.`}
-          </p>
-          <p className="flex gap-2">
-            {`Already have an account?`}
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div
+                  className={`w-full border-t ${
+                    themeMode === "light"
+                      ? "border-gray-300"
+                      : "border-gray-600"
+                  }`}></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span
+                  className={`px-2 ${
+                    themeMode === "light"
+                      ? "bg-white text-gray-500"
+                      : "bg-gray-800 text-gray-400"
+                  }`}>
+                  Or sign up with
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className={`mt-4 w-full flex items-center justify-center px-4 py-2 border rounded-md shadow-sm text-sm font-medium transition-all duration-200 ${
+                themeMode === "light"
+                  ? "border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
+                  : "border-gray-600 text-gray-300 bg-gray-700 hover:bg-gray-600"
+              }`}>
+              <FcGoogle className="w-5 h-5 mr-2" />
+              Sign up with Google
+            </button>
+          </div>
+
+          <p
+            className={`mt-8 text-center text-sm ${
+              themeMode === "light" ? "text-gray-600" : "text-gray-400"
+            }`}>
+            Already have an account?{" "}
             <NavLink
-              to={"/Register"}
-              className={`text-orange-500 hover:underline`}>
-              Click here to Login
+              to="/Login"
+              className={`font-medium transition-colors duration-200 ${
+                themeMode === "light"
+                  ? "text-indigo-600 hover:text-indigo-800"
+                  : "text-indigo-400 hover:text-indigo-300"
+              }`}>
+              Log in here
             </NavLink>
           </p>
         </div>
-      </section>
+
+        <div className="w-1/2 pl-8 flex flex-col justify-center items-center">
+          <div
+            className={`w-full h-full rounded-2xl p-8 flex flex-col justify-center items-center animate-float ${
+              themeMode === "light" ? "bg-indigo-100" : "bg-indigo-900"
+            }`}>
+            <svg
+              className={`w-64 h-64 mb-8 ${
+                themeMode === "light" ? "text-indigo-600" : "text-indigo-300"
+              }`}
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                fill="currentColor"
+              />
+            </svg>
+            <h3
+              className={`text-2xl font-bold mb-4 ${
+                themeMode === "light" ? "text-indigo-800" : "text-indigo-200"
+              }`}>
+              Welcome to PlanZen!
+            </h3>
+            <p
+              className={`text-center ${
+                themeMode === "light" ? "text-indigo-600" : "text-indigo-300"
+              }`}>
+              PlanZen is a simple and intuitive calendar application that helps
+              you organize and schedule your tasks efficiently.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

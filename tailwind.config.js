@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       height: {
-        welHgt: "30dvh",
+        welHgt: "25dvh",
         ctHgt: "55%",
       },
     },
